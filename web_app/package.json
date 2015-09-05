@@ -1,7 +1,7 @@
 {
-  "name": "YOUR-PROJECT-NAME-HERE",
-  "description": "YOUR PROJECT DESCRIPTION HERE",
-  "author": "YOUR NAME <your@emailaddress.com>",
+  "name": "Educate",
+  "description": "Something",
+  "author": "David Furlong <david@furlo.ng>",
   "version": "0.0.1",
   "dependencies": {
     "connect": "1.8.5",
