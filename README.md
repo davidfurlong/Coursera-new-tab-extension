@@ -1,3 +1,5 @@
+# Project Loft
+
 # Info
 
 There seems to be "old" and "new" coursera course pages (v1, v2) ~ 2014 approx change.
@@ -52,6 +54,10 @@ Sessions: https://api.coursera.org/api/catalog.v1/sessions
 some requests are batched at /api/batch andcan only be batched.
 
 base: https://www.coursera.org
+
+### /api/opencourse.v1/video/tCaiqgAHEeWqCCIAC7TD7g
+
+### /api/onDemandDiscussionQuestions.v1/?courseId=s5sEkwAHEeW9ISIACxWDhA&sort=lastActivityAtDesc&limit=15&includes=creatorId%2ClastAnsweredBy%2CflagId%2C_links&q=byItem&itemId=zEdwZ
 
 ### /api/onDemandInstructorNotes.v1/?courseId=GdeNrll1EeSROyIACtiVvg&includes=instructorIds&fields=instructors.v1(fullName)&q=byCourse
 
@@ -314,9 +320,16 @@ returns
 
 ### /api/courseLists.v1?fields
 
-### /api/memberships.v1?fields
+needs reproduction with fields
+
+### /api/memberships.v1?fields=courseId,enrolledTimestamp,grade,id,lastAccessedTimestamp,onDemandSessionId,role,v1SessionId,vc,vcMembershipId,courses.v1(courseStatus,display,partnerIds,photoUrl,specializations,startDate,v1Details,v2Details),partners.v1(homeLink,name),v1Details.v1(sessionIds),v1Sessions.v1(active,certificatesReleased,dbEndDate,durationString,hasSigTrack,startDay,startMonth,startYear),v2Details.v1(plannedLaunchDate),specializations.v1(logo,name,partnerIds,shortName)&includes=courseId,onDemandSessionId,vcMembershipId,courses.v1(partnerIds,specializations,v1Details,v2Details),v1Details.v1(sessionIds),specializations.v1(partnerIds)&q=me&showHidden=false&filter=current,preEnrolled
+
+
 
 ### /api/courses.v1?fields=certificatePartnerLogo,name,partnerIds,partnerLogo,partners.v1(classLogo,logo)&includes=partnerIds&q=slug&slug=modern-postmodern-2&courseType=v2.ondemand
+
+other known fields:
+fields=display,partnerIds,photoUrl,startDate,partners.v1(homeLink,name)&includes=partnerIds&q=watchlist
 
 ```
 {
@@ -345,5 +358,9 @@ returns
 	}
 }
 ```
+
+### /api/myFeedback.v1/?q=course&courseId=s5sEkwAHEeW9ISIACxWDhA
+
+empty and seems unimportant
 
 all need userid passed. David Furlong: userId:13364170, 3060151
