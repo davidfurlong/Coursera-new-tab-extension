@@ -59,23 +59,34 @@ var MyCourses = React.createClass({
     getDataPoint('ENROLLMENTS', function (d) {
       that.setState({ data: d.ENROLLMENTS });
     });
+    chrome.storage.sync.get({
+      hideCourses: false
+    }, function (items) {
+      that.setState({ hideCourses: items.hideCourses });
+    });
   },
   render: function render() {
+    var that = this;
     return React.createElement(
       'ul',
       { className: 'course-list' },
       this.state.data.map(function (result) {
+        var sinceLastAccess = new Date().getTime() - result.lastAccessedTimestamp || 0;
+        var days = Math.floor(sinceLastAccess / 86400000);
         var classes = React.addons.classSet({
           'red': days >= 3,
           'orange': 3 > days && 1 <= days,
           'days-since': true
         });
-        var sinceLastAccess = new Date().getTime() - result.lastAccessedTimestamp || 0;
-        var days = Math.floor(sinceLastAccess / 86400000);
+        var cardClasses = React.addons.classSet;
+        var cx = cardClasses({
+          'hidden': 3 > days && that.state.hideCourses,
+          'card': true
+        });
         var route = "https://www.coursera.org/learn/" + result.slug + "/home/welcome";
         return React.createElement(
           'li',
-          { key: result.id, className: 'card' },
+          { key: result.id, className: cx },
           React.createElement('img', { src: result.photoUrl, className: 'course-photo' }),
           React.createElement(
             'h4',

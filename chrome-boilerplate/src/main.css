@@ -111,6 +111,10 @@ a {
 	float: left;
 }
 
+.card.hidden {
+	display: none;
+}
+
 .card > .days-since {
 	font-size: 70px;
 	float:right;
