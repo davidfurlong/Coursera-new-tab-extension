@@ -1,0 +1,133 @@
+html, body {
+	padding: 0;
+	margin: 0;
+	height: 100%;
+	width: 100%;
+	overflow-y: hidden;
+}
+
+body {
+	-webkit-font-smoothing: antialiased;
+	font-weight: 300;
+	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+	font-size: 16pt;
+	background:#4c41c1;
+}
+
+#future {
+	position: absolute;
+	bottom: 0px;
+	font-size: 195px;
+	color: rgba(0,0,0,0.07);
+	line-height: 150px;
+	padding: 0 40px;
+	z-index: 20;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	cursor: default;
+	font-family: 'FatFrank';
+}
+
+h1 {
+	font-size: 100px;
+	font-weight: 100;
+	margin-top: 0;
+	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+}
+
+#auth-container {
+	margin: 0 auto;
+	width: auto;
+	height: auto;
+	position: absolute;
+	left: 50%;
+	margin-left: -175px;
+	top: 50%;
+	margin-top: -23px;
+}
+
+#auth-coursera {
+	letter-spacing: 1px;
+	vertical-align: middle;
+	margin: 0 auto;
+	color: #111;
+	background: transparent;
+	border: 2px solid black;
+	padding: 10px 50px;
+	outline: none;
+	text-transform: uppercase;
+	font-size: 16pt;
+	cursor: pointer;
+}
+
+#auth-coursera:hover {
+	color: #333;
+	border: 2px solid #333;
+}
+
+.course-list {
+	list-style-type: none;
+}
+
+.progress-bar {
+	width: 100%;
+	height: 4px;
+	bottom: -15px;
+	position: relative;
+}
+
+.progress-bar-inner {
+	background: green;
+	display: block;
+	height: 100%;
+	overflow: hidden;
+	position: relative;
+}
+
+.card {
+	position: relative;
+	width: auto;
+	display: inline;
+	float: left;
+	padding: 10px;
+	background: white;
+	width: 300px;
+	z-index: 50 !important;
+	margin-right: 10px;
+}
+
+a {
+	color: inherit !important;
+	text-decoration: none;
+}
+
+.card h4 {
+	width: 240px;
+	margin: 0;
+	float: left;
+}
+
+.card > .days-since {
+	font-size: 70px;
+	float:right;
+	font-family: 'Outage';
+	color: #bbb;
+}
+
+.card > .days-since.red {
+	color: red;
+	font-weight: bold;
+}
+
+.card > .days-since.orange {
+	color: orange;
+	font-weight: bold;
+}
+
+.course-photo {
+	width: 300px;
+}
