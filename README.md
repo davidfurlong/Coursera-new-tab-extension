@@ -1,6 +1,16 @@
-# Project Loft
+# Educate
 
-# Info
+"key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAoLJfpdHPkipj6cam25KTWc5WGaQu8sHS08EyFsxgZIsUrLCWe663I3ruEe5hr+dmnF7rocO8rq+vVGg0NGtjsvzAjrDTC5798SMFGTA0ljXPu0jLMXtiQqOUAkgcqz8Qpanxms/BsYjNz0VSWmZs6NVrEobONJz7IIiHDHadjgDJw17OPHJqdfAzkiqyg9FYpiBISyca1lQlCcuRh9nAB0U16Gv5BBQNIcVf434XNVMH3T5dExX7+SxsNipq73tTugN53t0YmqWzfpgrN+vnivJ64OPONDDyHQKn6OH7oSikgz/AgmAwqKB2O/HBuryNaFgMcI+5+T+YDKJyp3jb6wIDAQAB"
+
+
+Unofficial Coursera API docs below.
+Not complete + not well documented.
+
+## Todo
+
+sort by days inactive
+
+## Info
 
 There seems to be "old" and "new" coursera course pages (v1, v2) ~ 2014 approx change.
 
@@ -11,6 +21,7 @@ There seems to be "old" and "new" coursera course pages (v1, v2) ~ 2014 approx c
 ### https://api.coursera.org/api/users/v1/me/enrollments
 
 note courses and enrollments correspond 1-1 but not ordered to correspond.
+Also this doesn't seem to correspond to the currently active courses at all.
 ```
 {
 	courses: [
@@ -43,6 +54,8 @@ note courses and enrollments correspond 1-1 but not ordered to correspond.
 
 ## Catalog API
 
+(Pretty useless tbh)
+
 Courses: https://api.coursera.org/api/catalog.v1/courses
 Universities: https://api.coursera.org/api/catalog.v1/universities
 Categories: https://api.coursera.org/api/catalog.v1/categories
@@ -51,17 +64,56 @@ Sessions: https://api.coursera.org/api/catalog.v1/sessions
 
 ## Internal API
 
-some requests are batched at /api/batch andcan only be batched.
+some requests are batched at /api/batch and can only be batched.
 
 base: https://www.coursera.org
 
+### https://www.coursera.org/api/opencourse.v1/user/3060151/course/modern-postmodern-2/item/Z1XMK/peer/getAssignment
+
+(not batched)
+
+### /api/openCourseAssets.v1/VkGEvwDQEeWrDSIAC5XBJg
+
+### https://www.coursera.org/api/opencourse.v1/user/3060151/course/modern-postmodern-2/item/Z1XMK/peer/getLatestSubmission
+
+### https://www.coursera.org/api/opencourse.v1/user/3060151/course/modern-postmodern-2/item/Z1XMK/peer/getReviewStats
+
 ### /api/opencourse.v1/video/tCaiqgAHEeWqCCIAC7TD7g
+
+### /api/onDemandDiscussionForums.v1/?q=byCourse&courseId=s5sEkwAHEeW9ISIACxWDhA
+
+```
+{
+	elements: [
+		{
+			id: "PMmLHir6EeWL_SIACnuNyg",
+			name: "General Discussion",
+			description: "Use this forum to discuss things related to the course that don’t belong in any of the other forums.",
+			order: 1,
+			accessAuthGroup: "everyone"
+		},
+		{
+			id: "PKD1Myr6EeWVxyIAC4UJMQ",
+			name: "Meet and Greet",
+			description: "Introduce yourself and say hello to your fellow classmates!",
+			order: 2,
+			accessAuthGroup: "everyone"
+		}
+	],
+	paging: null,
+	linked: null
+}
+```
 
 ### /api/onDemandDiscussionQuestions.v1/?courseId=s5sEkwAHEeW9ISIACxWDhA&sort=lastActivityAtDesc&limit=15&includes=creatorId%2ClastAnsweredBy%2CflagId%2C_links&q=byItem&itemId=zEdwZ
 
+### /api/onDemandVideoProgresses.v1/3060151~s5sEkwAHEeW9ISIACxWDhA~tCaiqgAHEeWqCCIAC7TD7g
+
+error not found -- oops coursera
+
 ### /api/onDemandInstructorNotes.v1/?courseId=GdeNrll1EeSROyIACtiVvg&includes=instructorIds&fields=instructors.v1(fullName)&q=byCourse
 
-description of course + instructors profiles
+description of course + instructors profiles (long + omitted)
 
 ### /api/opencourse.v1/user/{user_id}/course/{course_slug}
 (also /api/onDemandCoursesProgress.v1/{user_id}~{course_ident})
@@ -298,33 +350,14 @@ doesnt work
 }
 ```
 
-### /api/openCourseMemberships.v1/?q=findByUser&userId=13364170
-
--- 401 error --
-returns
-``` 
-{
-	elements: [
-		{
-			userId: 3060151,
-			courseId: "s5sEkwAHEeW9ISIACxWDhA",
-			id: "3060151~s5sEkwAHEeW9ISIACxWDhA",
-			timestamp: 1441487278151,
-			courseRole: "LEARNER"
-		}
-	],
-	paging: null,
-	linked: null
-}
-```
-
 ### /api/courseLists.v1?fields
 
 needs reproduction with fields
 
 ### /api/memberships.v1?fields=courseId,enrolledTimestamp,grade,id,lastAccessedTimestamp,onDemandSessionId,role,v1SessionId,vc,vcMembershipId,courses.v1(courseStatus,display,partnerIds,photoUrl,specializations,startDate,v1Details,v2Details),partners.v1(homeLink,name),v1Details.v1(sessionIds),v1Sessions.v1(active,certificatesReleased,dbEndDate,durationString,hasSigTrack,startDay,startMonth,startYear),v2Details.v1(plannedLaunchDate),specializations.v1(logo,name,partnerIds,shortName)&includes=courseId,onDemandSessionId,vcMembershipId,courses.v1(partnerIds,specializations,v1Details,v2Details),v1Details.v1(sessionIds),specializations.v1(partnerIds)&q=me&showHidden=false&filter=current,preEnrolled
 
-
+course data
+grade data
 
 ### /api/courses.v1?fields=certificatePartnerLogo,name,partnerIds,partnerLogo,partners.v1(classLogo,logo)&includes=partnerIds&q=slug&slug=modern-postmodern-2&courseType=v2.ondemand
 
