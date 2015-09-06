@@ -130,7 +130,7 @@ a {
 }
 
 .card h4 {
-	width: 240px;
+	width: 250px;
 	margin: 0;
 	float: left;
 }
@@ -140,12 +140,12 @@ a {
 }
 
 .card > .days-since {
-	font-size: 70px;
+	font-size: 15px;
 	float:right;
-	font-family: 'Outage';
-	color: #bbb;
+	width: 50px;
+	vertical-align: bottom;
+	margin-top: 3px;
 }
-
 .card > .days-since.red {
 	color: red;
 	font-weight: bold;

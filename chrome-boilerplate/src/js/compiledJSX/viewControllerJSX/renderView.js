@@ -68,6 +68,17 @@ var MyCourses = React.createClass({
       that.setState({ hideCourses: items.hideCourses });
     });
   },
+  soonestDeadline: function soonestDeadline(courseId) {
+    var now = new Date().getTime();
+    var currMin = Infinity;
+    var el = DEADLINES[courseId];
+    if (!el) return "";
+    for (var i = 0; i < el.length; i++) {
+      if (el[i].deadline > now && el[i].deadline < currMin) currMin = el[i].deadline;
+    }
+    var daysleft = Math.floor((currMin - now) / 86400000);
+    return daysleft;
+  },
   render: function render() {
     var that = this;
     return React.createElement(
@@ -76,10 +87,31 @@ var MyCourses = React.createClass({
       this.state.data.map(function (result) {
         var sinceLastAccess = new Date().getTime() - result.lastAccessedTimestamp || 0;
         var days = Math.floor(sinceLastAccess / 86400000);
-        var classes = classNames({ 'red': days >= 3 }, { 'orange': 3 > days && 1 <= days }, 'days-since');
-        var cx = classNames({ 'hidden': 3 > days && that.state.hideCourses }, 'card', 'animated', 'bounceInDown');
-        if (result.courseId.length < 8) // OLD COURSERA PAGES
-          var route = "https://www.coursera.org/course/" + result.slug;else var route = "https://www.coursera.org/learn/" + result.slug + "/home/welcome";
+
+        var now = new Date().getTime();
+        var currMin = Infinity;
+        var currMinId = null;
+        var el = DEADLINES[result.courseId];
+        if (el) {
+          for (var i = 0; i < el.length; i++) {
+            if (el[i].deadline > now && el[i].deadline < currMin) {
+              currMin = el[i].deadline;
+              currMinId = el[i].moduleId;
+            }
+          }
+          var daysleft = Math.floor((currMin - now) / 86400000);
+        } else var daysleft = "DNA";
+        var showDeadline = daysleft == "DNA" ? "" : "Due in " + daysleft + " days";
+        var cx = classNames({ 'hidden': 7 < daysleft && that.state.hideCourses }, 'card', 'animated', 'bounceInDown');
+        var classes = classNames({ 'red': daysleft <= 1 }, { 'orange': 7 > daysleft && 1 <= daysleft }, 'days-since');
+        if (result.courseId.length < 8) {
+          // OLD COURSERA PAGES
+          var route = "https://www.coursera.org/course/" + result.slug;
+          var route2 = "";
+        } else {
+          var route = "https://www.coursera.org/learn/" + result.slug + "/home/welcome";
+          var route2 = "https://www.coursera.org/learn/modern-postmodern-2/lecture/" + currMinId;
+        }
         return React.createElement(
           'li',
           { key: result.id, className: cx },
@@ -96,7 +128,7 @@ var MyCourses = React.createClass({
           React.createElement(
             'div',
             { className: classes },
-            days
+            showDeadline
           ),
           React.createElement(ProgressBar, { data: result })
         );

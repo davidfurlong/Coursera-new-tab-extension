@@ -6,6 +6,8 @@ USER_ID = null;
 
 // current courses
 ENROLLMENTS = [];
+// dict
+DEADLINES = {};
 
 csl = chrome.storage.local;
 
@@ -18,12 +20,13 @@ function storeData(o, cb){
 
 
 function getData(){
-	csl.get(['CODE', 'ACCESS_TOKEN', 'USER_COURSES', 'USER_ID', 'ENROLLMENTS'], function(items){
+	csl.get(['CODE', 'ACCESS_TOKEN', 'USER_COURSES', 'USER_ID', 'ENROLLMENTS', 'DEADLINES'], function(items){
 		CODE = items.CODE || CODE;
 		ACCESS_TOKEN = items.ACCESS_TOKEN || ACCESS_TOKEN;
 		USER_COURSES = items.USER_COURSES || USER_COURSES;
 		USER_ID = items.USER_ID || USER_ID;
 		ENROLLMENTS = items.ENROLLMENTS || ENROLLMENTS;
+		DEADLINES = items.DEADLINES || DEADLINES;
 
 		if(!USER_ID && ACCESS_TOKEN) getUserId();
 		if(USER_ID && ACCESS_TOKEN) getCourseraData();

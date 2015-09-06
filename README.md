@@ -3,6 +3,12 @@
 "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAoLJfpdHPkipj6cam25KTWc5WGaQu8sHS08EyFsxgZIsUrLCWe663I3ruEe5hr+dmnF7rocO8rq+vVGg0NGtjsvzAjrDTC5798SMFGTA0ljXPu0jLMXtiQqOUAkgcqz8Qpanxms/BsYjNz0VSWmZs6NVrEobONJz7IIiHDHadjgDJw17OPHJqdfAzkiqyg9FYpiBISyca1lQlCcuRh9nAB0U16Gv5BBQNIcVf434XNVMH3T5dExX7+SxsNipq73tTugN53t0YmqWzfpgrN+vnivJ64OPONDDyHQKn6OH7oSikgz/AgmAwqKB2O/HBuryNaFgMcI+5+T+YDKJyp3jb6wIDAQAB"
 
 
+// "content_scripts": [{
+//   "matches": ["https://www.coursera.org/learn/*"],
+//   "css": ["src/main.css"],
+//   "js": ["lib/jquery.min.js", "src/js/script.js"]
+// }],
+
 Unofficial Coursera API docs below.
 Not complete + not well documented.
 

@@ -19,6 +19,27 @@ function getOpenCourseMemberships(){
 	xhr.send();
 }
 
+function getCourseDeadline(course_id){
+	if(course_id.length < 10) return "old api no deadlines"
+	var xhr = createCORSRequest('GET', "https://www.coursera.org/api/onDemandDeadlineSettings.v1/?q=byUserAndCourse&userId="+USER_ID+"&courseId="+course_id);
+	if (!xhr) throw new Error('CORS not supported');
+	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
+	xhr.onload = function() {
+	    var response = JSON.parse(xhr.responseText);
+	    console.log('deadline');
+	    console.log(response);
+	    if(response.elements){
+	    	var o = response.elements[0];
+	    	DEADLINES[o.courseId] = o.moduleDeadlines;
+	    } 
+	};
+
+	xhr.onerror = function() {
+	   console.error('Woops, there was an error making the request');
+	};
+	xhr.send();
+}
+
 function getCourseGrades(course_id){
 	var xhr = createCORSRequest('POST', "https://www.coursera.org/api/batch");
 	if (!xhr) throw new Error('CORS not supported');
@@ -84,8 +105,10 @@ function getCourseDetails(){
 	    storeData({'ENROLLMENTS':ENROLLMENTS}, function(){
 	    	for(var i = 0; i < r.elements.length; i++){
 	    		getCourseGrades(r.elements[i].courseId);
+	    		getCourseDeadline(r.elements[i].courseId);
 	    	}
 	    });  
+	    storeData({'DEADLINES': DEADLINES});
 	};
 
 	xhr.onerror = function() {
