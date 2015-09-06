@@ -6,18 +6,21 @@ var Page = React.createClass({
   getInitialState: function getInitialState() {
     return { activePage: React.createElement('div', null) };
   },
-  componentDidMount: function componentDidMount() {
+  updateState: function updateState() {
     var that = this;
     getDataPoint('USER_ID', function (d) {
       if (d['USER_ID']) that.setState({ activePage: React.createElement(HomePage, null) });else that.setState({ activePage: React.createElement(SignupPage, null) });
     });
+  },
+  componentDidMount: function componentDidMount() {
+    this.updateState();
   },
   render: function render() {
     return this.state.activePage;
   }
 });
 
-React.render(React.createElement(Page, null), document.getElementById('page-container'));
+window.x = React.render(React.createElement(Page, null), document.getElementById('page-container'));
 
 var SignupPage = React.createClass({
   displayName: 'SignupPage',
@@ -73,17 +76,10 @@ var MyCourses = React.createClass({
       this.state.data.map(function (result) {
         var sinceLastAccess = new Date().getTime() - result.lastAccessedTimestamp || 0;
         var days = Math.floor(sinceLastAccess / 86400000);
-        var classes = React.addons.classSet({
-          'red': days >= 3,
-          'orange': 3 > days && 1 <= days,
-          'days-since': true
-        });
-        var cardClasses = React.addons.classSet;
-        var cx = cardClasses({
-          'hidden': 3 > days && that.state.hideCourses,
-          'card': true
-        });
-        var route = "https://www.coursera.org/learn/" + result.slug + "/home/welcome";
+        var classes = classNames({ 'red': days >= 3 }, { 'orange': 3 > days && 1 <= days }, 'days-since');
+        var cx = classNames({ 'hidden': 3 > days && that.state.hideCourses }, 'card', 'animated', 'bounceInDown');
+        if (result.courseId.length < 8) // OLD COURSERA PAGES
+          var route = "https://www.coursera.org/course/" + result.slug;else var route = "https://www.coursera.org/learn/" + result.slug + "/home/welcome";
         return React.createElement(
           'li',
           { key: result.id, className: cx },

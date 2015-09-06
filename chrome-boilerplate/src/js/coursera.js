@@ -41,6 +41,8 @@ function getCourseGrades(course_id){
 		    	}
 		    }
 		    storeData({'ENROLLMENTS':ENROLLMENTS});
+		    window.x.updateState();
+		    // FINISH LOADING QUEUE
 		}
 	};
 
